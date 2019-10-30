@@ -1,0 +1,33 @@
+{
+    "start": "1",
+    "1": {
+        "type": "normal",
+        "messages": [
+            "Olá, Fulano",
+            "Bem vindo ao jogo tal.",
+            "Escolha o que deseja fazer"
+        ],
+        "next": "4"
+    },
+    "4": {
+        "type": "timer",
+        "wait": 2,
+        "next": "2"
+    },
+    "3": {
+        "type": "normal",
+        "messages": [
+            "Você clicou talvez"
+        ]
+    },
+    "2": {
+        "type": "choices",
+        "question": "Deseja fazer isso?",
+        "answers": [
+            { "text":  "Sim", "next" : "1"},
+            { "text":  "Não", "next" : "2"},
+            { "text":  "Talvez", "next" : "3"}
+        ]
+    }
+}
+

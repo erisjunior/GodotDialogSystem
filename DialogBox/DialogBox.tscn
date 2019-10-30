@@ -1,0 +1,52 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://DialogBox/scripts/DialogBox.gd" type="Script" id=1]
+[ext_resource path="res://DialogBox/scripts/DialogEngine.gd" type="Script" id=2]
+[ext_resource path="res://DialogBox/scripts/NormalType.gd" type="Script" id=3]
+[ext_resource path="res://DialogBox/scripts/ChoicesType.gd" type="Script" id=4]
+[ext_resource path="res://DialogBox/scripts/TimerType.gd" type="Script" id=5]
+
+[node name="DialogBox" type="Node2D"]
+script = ExtResource( 1 )
+dialog_path = "res://json.json"
+
+[node name="Background" type="Polygon2D" parent="."]
+editor/display_folded = true
+color = Color( 0, 0, 0, 0.392157 )
+polygon = PoolVector2Array( 20, 580, 1000, 580, 1000, 420, 20, 420 )
+
+[node name="Control" type="Control" parent="Background"]
+margin_left = 40.0
+margin_top = 440.0
+margin_right = 980.0
+margin_bottom = 560.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background/Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Text" type="RichTextLabel" parent="Background/Control/VBoxContainer"]
+margin_right = 940.0
+margin_bottom = 120.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+bbcode_enabled = true
+
+[node name="DialogEngine" type="Node" parent="."]
+script = ExtResource( 2 )
+
+[node name="normal" type="Node" parent="DialogEngine"]
+script = ExtResource( 3 )
+
+[node name="Timer" type="Timer" parent="DialogEngine/normal"]
+wait_time = 0.1
+
+[node name="choices" type="Node" parent="DialogEngine"]
+script = ExtResource( 4 )
+
+[node name="timer" type="Node" parent="DialogEngine"]
+script = ExtResource( 5 )
+
+[node name="Timer" type="Timer" parent="DialogEngine/timer"]
+[connection signal="timeout" from="DialogEngine/normal/Timer" to="DialogEngine/normal" method="_on_Timer_timeout"]
+[connection signal="timeout" from="DialogEngine/timer/Timer" to="DialogEngine/timer" method="_on_Timer_timeout"]
